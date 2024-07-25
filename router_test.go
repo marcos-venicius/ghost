@@ -5,9 +5,9 @@ import (
 )
 
 func TestAddRouteFunc(t *testing.T) {
-	var routes = Router[string]{}
+	var routes = Router{}
 
-	routes.addRoute("put", "/users/:id/test", func() string { return "" })
+	routes.addRoute("put", "/users/:id/test", func() interface{} { return "" })
 
 	if _, ok := routes["put"]; !ok {
 		t.Fatal("Expected to routes have a put property")
@@ -67,11 +67,11 @@ func TestAddRouteFunc(t *testing.T) {
 }
 
 func TestPutWithMoreThanOneRoute(t *testing.T) {
-	var routes = Router[string]{}
+	var routes = Router{}
 
-	routes.addRoute("put", "/users/:id/test", func() string { return "" })
-	routes.addRoute("put", "/users/:id/other", func() string { return "" })
-	routes.addRoute("put", "/users/other", func() string { return "" })
+	routes.addRoute("put", "/users/:id/test", func() interface{} { return "" })
+	routes.addRoute("put", "/users/:id/other", func() interface{} { return "" })
+	routes.addRoute("put", "/users/other", func() interface{} { return "" })
 
 	route1 := routes["put"].next["users"].next["*"].next["test"]
 	route2 := routes["put"].next["users"].next["*"].next["other"]
