@@ -30,4 +30,3 @@ func createResponse(statusCode uint, statusCodeText string, contentType string, 
 
 	return response
 }
-

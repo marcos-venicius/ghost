@@ -5,7 +5,7 @@ import (
 )
 
 func CreateRouter() *Router {
-  return &Router{}
+	return &Router{}
 }
 
 func (currentTree *Router) addRoute(method, url string, handler RequestHandler) {
