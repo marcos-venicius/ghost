@@ -4,11 +4,11 @@ import (
 	"strings"
 )
 
-func CreateRouter() Router {
-	return make(Router)
+func CreateRouter() *Router {
+  return &Router{}
 }
 
-func (currentTree *Router) addRoute(method, url string, handler handler) {
+func (currentTree *Router) addRoute(method, url string, handler RequestHandler) {
 	if _, ok := (*currentTree)[method]; !ok {
 		(*currentTree)[method] = node{
 			end:  false,
@@ -50,7 +50,7 @@ func (currentTree *Router) addRoute(method, url string, handler handler) {
 	}
 }
 
-func (currentTree *Router) findRoute(method string, url string) (handler, HttpError) {
+func (currentTree *Router) findRoute(method string, url string) (RequestHandler, HttpError) {
 	route := splitUrl(url)
 
 	current := (*currentTree)[method]
@@ -80,44 +80,30 @@ func (currentTree *Router) findRoute(method string, url string) (handler, HttpEr
 	return current.handler, nil
 }
 
-func (router Router) Put(url string, handler handler) *Router {
+func (router *Router) Put(url string, handler RequestHandler) {
 	router.addRoute("put", url, handler)
-
-	return &router
 }
 
-func (router Router) Get(url string, handler handler) *Router {
+func (router *Router) Get(url string, handler RequestHandler) {
 	router.addRoute("get", url, handler)
-
-	return &router
 }
 
-func (router Router) Delete(url string, handler handler) *Router {
+func (router *Router) Delete(url string, handler RequestHandler) {
 	router.addRoute("delete", url, handler)
-
-	return &router
 }
 
-func (router Router) Patch(url string, handler handler) *Router {
+func (router *Router) Patch(url string, handler RequestHandler) {
 	router.addRoute("patch", url, handler)
-
-	return &router
 }
 
-func (router Router) Post(url string, handler handler) *Router {
+func (router *Router) Post(url string, handler RequestHandler) {
 	router.addRoute("post", url, handler)
-
-	return &router
 }
 
-func (router Router) Options(url string, handler handler) *Router {
+func (router *Router) Options(url string, handler RequestHandler) {
 	router.addRoute("options", url, handler)
-
-	return &router
 }
 
-func (router Router) Head(url string, handler handler) *Router {
+func (router *Router) Head(url string, handler RequestHandler) {
 	router.addRoute("head", url, handler)
-
-	return &router
 }

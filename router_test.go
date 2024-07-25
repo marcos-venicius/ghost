@@ -5,7 +5,7 @@ import (
 )
 
 func TestAddRouteFunc(t *testing.T) {
-	var routes = make(Router)
+	var routes = Router[string]{}
 
 	routes.addRoute("put", "/users/:id/test", func() string { return "" })
 
@@ -67,7 +67,7 @@ func TestAddRouteFunc(t *testing.T) {
 }
 
 func TestPutWithMoreThanOneRoute(t *testing.T) {
-	var routes = make(Router)
+	var routes = Router[string]{}
 
 	routes.addRoute("put", "/users/:id/test", func() string { return "" })
 	routes.addRoute("put", "/users/:id/other", func() string { return "" })

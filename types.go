@@ -1,10 +1,10 @@
 package ghost
 
-type handler func() string
+type RequestHandler func() interface{}
 
 type node struct {
 	next    tree
-	handler handler
+	handler RequestHandler
 	end     bool
 }
 

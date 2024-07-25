@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-func handleConnection(conn net.Conn, router *Router) {
+func (router *Router) handleConnection(conn net.Conn) {
 	defer conn.Close()
 
 	reader := bufio.NewReader(conn)
@@ -34,7 +34,7 @@ func handleConnection(conn net.Conn, router *Router) {
 	} else {
 		result := handler()
 
-		response = createResponse(200, "OK", "text/plain", result)
+		response = createResponse(200, "OK", "text/plain", fmt.Sprint(result))
 	}
 
 	_, err = conn.Write([]byte(response))
@@ -44,7 +44,7 @@ func handleConnection(conn net.Conn, router *Router) {
 	}
 }
 
-func Listen(port uint, router *Router) {
+func (router *Router) Listen(port uint) {
 	listener, err := net.Listen("tcp", fmt.Sprintf(":%d", port))
 
 	if err != nil {
@@ -60,6 +60,6 @@ func Listen(port uint, router *Router) {
 			log.Fatal(err)
 		}
 
-		go handleConnection(conn, router)
+		go router.handleConnection(conn)
 	}
 }
