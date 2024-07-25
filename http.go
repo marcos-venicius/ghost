@@ -47,6 +47,8 @@ func (router *Router) handleConnection(conn net.Conn) {
 func (router *Router) Listen(port uint) {
 	listener, err := net.Listen("tcp", fmt.Sprintf(":%d", port))
 
+	log.Printf("Listening at 0.0.0.0:%d\n", port)
+
 	if err != nil {
 		log.Fatal(err)
 	}
