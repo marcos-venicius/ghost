@@ -19,15 +19,15 @@ func editProductHandler() interface{} {
 func main() {
 	router := ghost.CreateRouter()
 
-  router.Post(
+	router.Post(
 		"/products", createProductHandler,
 	)
 
-  router.Get(
+	router.Get(
 		"/products/:id", getProductHandler,
 	)
 
-  router.Put(
+	router.Put(
 		"/products/:id", editProductHandler,
 	)
 
